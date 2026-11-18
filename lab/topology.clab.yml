@@ -1,0 +1,24 @@
+# Containerlab topology: 1 spine + 2 leaves running Arista cEOS.
+# Get the cEOS image free (with an account) from arista.com > Software Downloads,
+# then: docker import cEOS64-lab-4.32.0F.tar.xz ceos:4.32.0F
+# Deploy:  sudo containerlab deploy -t lab/topology.clab.yml
+# Destroy: sudo containerlab destroy -t lab/topology.clab.yml
+name: netval
+
+topology:
+  kinds:
+    arista_ceos:
+      image: ceos:4.32.0F
+  nodes:
+    spine1:
+      kind: arista_ceos
+      mgmt-ipv4: 172.20.20.11
+    leaf1:
+      kind: arista_ceos
+      mgmt-ipv4: 172.20.20.21
+    leaf2:
+      kind: arista_ceos
+      mgmt-ipv4: 172.20.20.22
+  links:
+    - endpoints: ["spine1:eth1", "leaf1:eth1"]
+    - endpoints: ["spine1:eth2", "leaf2:eth1"]

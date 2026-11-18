@@ -1,0 +1,19 @@
+# Same plan, pointed at real cEOS switches from lab/topology.clab.yml.
+# Run with hosts ["172.20.20.21", "172.20.20.22"].
+driver: eos
+username: admin
+password: admin
+
+config:
+  - vlan 10
+  - name SERVERS
+  - vlan 20
+  - name STORAGE
+  - interface Ethernet1
+  - description uplink-spine1
+
+expected_version: 4.32.0F
+required_interfaces: [Ethernet1]
+min_speed_gbps: 0          # virtual links don't report real speeds
+required_vlans: [10, 20]
+min_lldp_neighbors: 1

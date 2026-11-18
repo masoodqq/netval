@@ -1,0 +1,13 @@
+services:
+  netval:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - netval-data:/data
+      - ./test_plans:/srv/test_plans   # edit plans without rebuilding
+    environment:
+      NETVAL_WORKERS: "16"
+
+volumes:
+  netval-data:

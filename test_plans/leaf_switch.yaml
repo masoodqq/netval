@@ -1,0 +1,21 @@
+# Test plan for a leaf switch coming off the line.
+# driver: "mock" runs with no hardware; "eos" talks to real/virtual Arista switches.
+driver: mock
+username: admin
+password: admin
+
+# Provisioning: config pushed before validation
+config:
+  - vlan 10
+  - name SERVERS
+  - vlan 20
+  - name STORAGE
+  - interface Ethernet1
+  - description uplink-spine1
+
+# Validation limits
+expected_version: 4.32.0F
+required_interfaces: [Ethernet1, Ethernet2, Ethernet3, Ethernet4]
+min_speed_gbps: 100
+required_vlans: [10, 20]
+min_lldp_neighbors: 1
